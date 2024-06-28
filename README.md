@@ -76,6 +76,22 @@ public:
     }
 };
 ```
+Использование конкретного класса в обработчике для кнопки
+
+```cpp
+private: System::Void btnShowMotorcycle_Click(System::Object^ sender, System::EventArgs^ e) {
+    this->txtOutput->Clear();
+    Transport* moto = new Motorcycle("Yamaha", "MT-09", 2022, 117, 1149, "img/moto.bmp"); ///
+    this->txtOutput->AppendText(gcnew String(moto->getInfo().c_str())); ///
+    Bitmap^ bmp = gcnew Bitmap(220, 200);
+    Graphics^ g = Graphics::FromImage(bmp);
+    pictureBox->Image = bmp;
+    Bitmap^ image;
+    System::String^ imageFile = gcnew System::String(moto->getImage().c_str()); ///
+    image = gcnew Bitmap(imageFile);
+    pictureBox->Image = image;
+}
+```
 # Пример работы приложения
 
 ![br3yQFcUJ6](https://github.com/s1kko1337/summer_practicle/assets/145784202/5dda4b5b-6385-433e-b4fa-8ffabaaa3224)
