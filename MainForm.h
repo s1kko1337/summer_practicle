@@ -1,6 +1,7 @@
 #pragma once
 #include "Motorcycle.h"
 #include "Car.h"
+#include "Transport.h"
 
 namespace SummerPracticle {
 
@@ -111,25 +112,25 @@ namespace SummerPracticle {
 
     private: System::Void btnShowMotorcycle_Click(System::Object^ sender, System::EventArgs^ e) {
         this->txtOutput->Clear();
-        Motorcycle moto("Yamaha", "MT-09", 2022, 117, 1149, "img/moto.bmp");
-        this->txtOutput->AppendText(gcnew String(moto.getInfo().c_str()));
+        Transport* moto = new Motorcycle("Yamaha", "MT-09", 2022, 117, 1149, "img/moto.bmp");
+        this->txtOutput->AppendText(gcnew String(moto->getInfo().c_str()));
         Bitmap^ bmp = gcnew Bitmap(220, 200);
         Graphics^ g = Graphics::FromImage(bmp);
         pictureBox->Image = bmp;
         Bitmap^ image;
-        System::String^ imageFile = gcnew System::String(moto.getImage().c_str());
+        System::String^ imageFile = gcnew System::String(moto->getImage().c_str());
         image = gcnew Bitmap(imageFile);
         pictureBox->Image = image;
     }
     private: System::Void btnShowCar_Click(System::Object^ sender, System::EventArgs^ e) {
         this->txtOutput->Clear();
-        Car car("Toyota", "Camry", 2021, 203, 2378, "img/car.bmp");
-        this->txtOutput->AppendText(gcnew String(car.getInfo().c_str()));
+        Transport* car = new Car("Toyota", "Camry", 2021, 203, 2378, "img/car.bmp");
+        this->txtOutput->AppendText(gcnew String(car->getInfo().c_str()));
         Bitmap^ bmp = gcnew Bitmap(220, 200);
         Graphics^ g = Graphics::FromImage(bmp);
         pictureBox->Image = bmp;
         Bitmap^ image;
-        System::String^ imageFile = gcnew System::String(car.getImage().c_str());
+        System::String^ imageFile = gcnew System::String(car->getImage().c_str());
         image = gcnew Bitmap(imageFile);
         pictureBox->Image = image;
     }
