@@ -17,9 +17,8 @@ public:
         : manufacturer(man), model(mod), type(t), year(y), power(pwr), averagePrice(price), image(img) {}
 
     virtual ~Transport() {}
-    virtual std::string getImage() const {
-        return image;
-    }
+
+    virtual std::string getImage() const = 0;
 
     virtual std::string getInfo() const {
         std::ostringstream oss;
