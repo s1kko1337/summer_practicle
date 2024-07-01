@@ -9,10 +9,21 @@ public:
     std::string getImage() const override {
         return this->image;
     }
-
-    std::string getInfo() const override {
+    
+    virtual std::string getMainInfo() const override {
         std::ostringstream oss;
-        oss << Transport::getInfo();
+        oss << "Марка: " << manufacturer << "\r\n"
+            << "Модель: " << model << "\r\n"
+            << "Тип транспорта: " << type << "\r\n"
+            << "Тип тип кузова: Седан\r\n"
+            << "Год выпуска: " << year << "\r\n"
+            << "Мощность: " << power << " л.с.\r\n"
+            << "Средняя цена: " << averagePrice << " тыс. руб\r\n";
+        return oss.str();
+    }
+
+    std::string getAdditionalInfo() const override {
+        std::ostringstream oss;
         oss << "------------------------------------------------\r\n";
         oss << "Кол-во мест: 5 мест\r\n";
         oss << "Объем багажника: 524 л\r\n";
