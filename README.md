@@ -14,7 +14,6 @@ protected:
     double power;
     double averagePrice;
     std::string image;
-
 public:
     Transport(std::string man, std::string mod, std::string t, int y, double pwr, double price, std::string img)
         : manufacturer(man), model(mod), type(t), year(y), power(pwr), averagePrice(price), image(img) {}
@@ -22,16 +21,11 @@ public:
     virtual ~Transport() {}
 
     virtual std::string getImage() const = 0;
+    virtual std::string getMainInfo() const = 0;
+    virtual std::string getAdditionalInfo() const = 0;
 
     virtual std::string getInfo() const {
-        std::ostringstream oss;
-        oss << "Марка: " << manufacturer << "\r\n"
-            << "Модель: " << model << "\r\n"
-            << "Тип транспорта: " << type << "\r\n"
-            << "Год выпуска: " << year << "\r\n"
-            << "Мощность: " << power << " л.с.\r\n"
-            << "Средняя цена: " << averagePrice << " тыс. руб\r\n";
-        return oss.str();
+        return getMainInfo() + getAdditionalInfo();
     }
 };
 ```
@@ -47,9 +41,19 @@ public:
         return this->image;
     }
 
-    std::string getInfo() const override {
+    virtual std::string getMainInfo() const override{
         std::ostringstream oss;
-        oss << Transport::getInfo();
+        oss << "Марка: " << manufacturer << "\r\n"
+            << "Модель: " << model << "\r\n"
+            << "Тип транспорта: " << type << "\r\n"
+            << "Год выпуска: " << year << "\r\n"
+            << "Мощность: " << power << " л.с.\r\n"
+            << "Средняя цена: " << averagePrice << " тыс. руб\r\n";
+        return oss.str();
+    }
+
+    std::string getAdditionalInfo() const override {
+        std::ostringstream oss;
         oss << "------------------------------------------------\r\n";
         oss << "Тип привода: Цепной\r\n";
         oss << "Рабочий объем: 847 см^3\r\n";
@@ -65,10 +69,21 @@ public:
     std::string getImage() const override {
         return this->image;
     }
-
-    std::string getInfo() const override {
+    
+    virtual std::string getMainInfo() const override {
         std::ostringstream oss;
-        oss << Transport::getInfo();
+        oss << "Марка: " << manufacturer << "\r\n"
+            << "Модель: " << model << "\r\n"
+            << "Тип транспорта: " << type << "\r\n"
+            << "Тип тип кузова: Седан\r\n"
+            << "Год выпуска: " << year << "\r\n"
+            << "Мощность: " << power << " л.с.\r\n"
+            << "Средняя цена: " << averagePrice << " тыс. руб\r\n";
+        return oss.str();
+    }
+
+    std::string getAdditionalInfo() const override {
+        std::ostringstream oss;
         oss << "------------------------------------------------\r\n";
         oss << "Кол-во мест: 5 мест\r\n";
         oss << "Объем багажника: 524 л\r\n";
@@ -81,13 +96,13 @@ public:
 ```cpp
 private: System::Void btnShowMotorcycle_Click(System::Object^ sender, System::EventArgs^ e) {
     this->txtOutput->Clear();
-    Transport* moto = new Motorcycle("Yamaha", "MT-09", 2022, 117, 1149, "img/moto.bmp"); ///
-    this->txtOutput->AppendText(gcnew String(moto->getInfo().c_str())); ///
+    Transport* moto = new Motorcycle("Yamaha", "MT-09", 2022, 117, 1149, "img/moto.bmp");
+    this->txtOutput->AppendText(gcnew String(moto->getInfo().c_str()));
     Bitmap^ bmp = gcnew Bitmap(220, 200);
     Graphics^ g = Graphics::FromImage(bmp);
     pictureBox->Image = bmp;
     Bitmap^ image;
-    System::String^ imageFile = gcnew System::String(moto->getImage().c_str()); ///
+    System::String^ imageFile = gcnew System::String(moto->getImage().c_str());
     image = gcnew Bitmap(imageFile);
     pictureBox->Image = image;
 }
