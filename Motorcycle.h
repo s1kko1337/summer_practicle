@@ -6,10 +6,6 @@ public:
     Motorcycle(std::string man, std::string mod, int y, double pwr, double price, std::string img)
         : Transport(man, mod, "Мотоцикл", y, pwr, price, img) {}
 
-    std::string getImage() const override {
-        return this->image;
-    }
-
     virtual std::string getMainInfo() const override{
         std::ostringstream oss;
         oss << "Марка: " << manufacturer << "\r\n"
